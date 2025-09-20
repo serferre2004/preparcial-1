@@ -1,0 +1,23 @@
+.editIcon {
+    position: absolute;
+    top: 4px;
+    right: 40px;
+    width: 14px;
+    cursor: pointer;
+}
+
+.deleteIcon {
+    position: absolute;
+    top: 4px;
+    right: 20px;
+    width: 14px;
+    cursor: pointer;
+}
+
+.editIcon :hover {
+    color: rgb(120, 209, 120);
+}
+
+.deleteIcon :hover {
+    color: rgb(231, 77, 77);
+}
