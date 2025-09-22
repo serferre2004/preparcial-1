@@ -1,9 +1,10 @@
 "use client";
 import Image from "next/image";
-import { FaEdit, FaTrash} from "react-icons/fa"
+import { FaEdit, FaTrash, FaStar} from "react-icons/fa"
 import styles from "./author.module.css";
 import { useListContext } from "@/contexts/ListContext";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export interface AuthorCardProps {
     id: number;
@@ -14,14 +15,41 @@ export interface AuthorCardProps {
 }
 
 export default function AuthorCard({id, name, birthdate, description, image}: AuthorCardProps) {
-    const { removeAuthor } = useListContext();
+    const { favs, removeAuthor, addFav, removeFav } = useListContext();
+    const [fav, setFav] = useState(false);
     const router = useRouter();
     const handleEdit = () => {
         router.push(`/crear?id=${id}`);
     }
 
+    useEffect (() => {
+        const author: AuthorCardProps | undefined = favs.find(a => a.id === id);
+        if (author) {
+            setFav(true);
+        }
+    })
+
+    const handleFav = () => {
+        if (fav) {
+            setFav(false);
+            removeFav(id);
+            console.log(`${name} eliminado de favoritos`);
+        } else {
+            setFav(true);
+            addFav(id);
+            console.log(`${name} añadido a favoritos`);
+        }
+    }
+
     return (
         <div className="relative bg-gray-600/30 hover:bg-slate-400/100 border-2 border-slate-400 rounded-lg w-9/10 h-90 mx-auto justify-items-center p-5 shadow-md">
+            <button 
+            className={`${styles.favIcon} ${fav? styles.fav:''}`} 
+            onClick={handleFav}
+            aria-pressed={fav}
+            >
+                <FaStar size={14} opacity={0.8} />
+            </button>
             <button className={styles.editIcon} onClick={handleEdit}>
                 <FaEdit size={14} color="oklch(50.4% 0.04 256.788)" opacity={0.8} />
             </button>

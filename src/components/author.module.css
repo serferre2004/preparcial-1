@@ -1,3 +1,15 @@
+.favIcon {
+    position: absolute;
+    top: 4px;
+    left: 20px;
+    width: 14px;
+    cursor: pointer;
+    color:  oklch(50.4% 0.04 256.788);
+}
+.fav {
+    color: yellow;
+}
+
 .editIcon {
     position: absolute;
     top: 4px;

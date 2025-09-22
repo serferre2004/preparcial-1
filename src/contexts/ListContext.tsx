@@ -1,20 +1,24 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { AuthorCardProps } from "@/components/authorCard";
+import AuthorCard, { AuthorCardProps } from "@/components/authorCard";
 
 interface ListContextType {
     list: AuthorCardProps[];
+    favs: AuthorCardProps[];
     setList: (list: AuthorCardProps[]) => void;
     addAuthor: (author: AuthorCardProps) => void;
     removeAuthor: (id: number) => void;
     updateAuthor: (author: AuthorCardProps) => void;
+    addFav: (id: number) => void;
+    removeFav: (id: number) => void;
 }
 
 const ListContext = createContext<ListContextType | undefined>(undefined);
 
 export function ListProvider({ children }: { children:React.ReactNode }) {
     const [list, setList] = useState<AuthorCardProps[]>([]);
+    const [favs, setFavs] = useState<AuthorCardProps[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
 
@@ -57,8 +61,19 @@ export function ListProvider({ children }: { children:React.ReactNode }) {
         addAuthor(author);
     }
 
+    const addFav = (id: number) => {
+        const author: AuthorCardProps | undefined = list.find(a => a.id === id);
+        if (!author) return;
+        setFavs(prev => [...prev, author]);
+        console.log(favs);
+    }
+    
+    const removeFav = (id: number) => {
+        setFavs(prev => prev.filter(a => a.id !== id));
+    }
+
     return (
-        <ListContext.Provider value={{ list, setList, addAuthor, removeAuthor, updateAuthor}}>
+        <ListContext.Provider value={{ list, favs, setList, addAuthor, removeAuthor, updateAuthor, addFav, removeFav}}>
             {children}
         </ListContext.Provider>
     );

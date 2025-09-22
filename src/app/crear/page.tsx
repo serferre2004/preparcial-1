@@ -64,14 +64,33 @@ export default function CrearPage() {
             <h1 className="text-2xl font-bold text-center">Nuevo Autor</h1>
             <form className="flex flex-col" onSubmit={handleSubmit}>
                 <label className={styles.label}>Nombre</label>
-                <input className={styles.input} onChange={(e) => handleInputChange('name', e.target.value)} value={author.name} required></input>
+                <input 
+                className={styles.input} 
+                onChange={(e) => handleInputChange('name', e.target.value)} 
+                value={author.name} 
+                required
+                aria-labelledby="name-label"
+                ></input>
                 <label className={styles.label}>Fecha de nacimiento</label>
-                <input className={styles.input} onChange={(e) => handleInputChange('birthdate', e.target.value)}  type="date" value={author.birthdate} required></input>
+                <input 
+                className={styles.input} 
+                onChange={(e) => handleInputChange('birthdate', e.target.value)}  
+                type="date" 
+                value={author.birthdate} 
+                required
+                aria-labelledby="birthdate-label"
+                ></input>
                 <label className={styles.label}>URL de imagen</label>
-                <textarea className={styles.input} onChange={(e) => handleInputChange('image', e.target.value)} value={author.image} required></textarea>
+                <textarea 
+                className={styles.input} 
+                onChange={(e) => handleInputChange('image', e.target.value)} 
+                value={author.image} 
+                required
+                aria-labelledby="image-url-label"
+                ></textarea>
                 { imagePrev.length > 0 && (
-                <Image 
-                src={imagePrev} 
+                    <Image 
+                    src={imagePrev} 
                 alt="Previsualización de imagen" 
                 width={200} 
                 height={200} 
@@ -79,8 +98,19 @@ export default function CrearPage() {
                 />
                 )}
                 <label className={styles.label}>Descripción</label>
-                <textarea rows={5} onChange={(e) => handleInputChange('description', e.target.value)}  className={styles.input} value={author.description} required></textarea>
-                <button type="submit" className={styles.button}>Guardar</button>
+                <textarea 
+                rows={5} 
+                onChange={(e) => handleInputChange('description', e.target.value)}  
+                className={styles.input} 
+                value={author.description} 
+                required
+                aria-labelledby="description-label"
+                ></textarea>
+                <button 
+                type="submit" 
+                className={styles.button}
+                aria-label="Guardar cambios"
+                >Guardar</button>
             </form>
         </div>
 
